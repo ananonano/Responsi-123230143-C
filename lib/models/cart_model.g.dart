@@ -17,10 +17,10 @@ class CartModelAdapter extends TypeAdapter<CartModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return CartModel(
-      id: fields[0] as int,
-      title: fields[1] as String,
-      price: fields[2] as double,
-      thumbnail: fields[3] as String,
+      id: fields[0] as String,
+      name: fields[1] as String,
+      rating: fields[2] as double,
+      background_image: fields[3] as String,
       qty: fields[4] as int,
       username: fields[5] as String,
     );
@@ -33,11 +33,11 @@ class CartModelAdapter extends TypeAdapter<CartModel> {
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.title)
+      ..write(obj.name)
       ..writeByte(2)
-      ..write(obj.price)
+      ..write(obj.rating)
       ..writeByte(3)
-      ..write(obj.thumbnail)
+      ..write(obj.background_image)
       ..writeByte(4)
       ..write(obj.qty)
       ..writeByte(5)

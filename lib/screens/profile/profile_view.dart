@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'profile_controller.dart';
 
+// Halaman profile user
 class ProfileView extends StatelessWidget {
   ProfileView({super.key});
 
+  // Inisialisasi controller
   final ProfileController controller = Get.put(ProfileController());
 
   @override
@@ -28,6 +30,7 @@ class ProfileView extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
+
             Center(
               child: Obx(
                 () => Text(
@@ -40,26 +43,45 @@ class ProfileView extends StatelessWidget {
               ),
             ),
             const Divider(height: 40, thickness: 2),
+
+            // Label kesan
             const Text(
               'Kesan:',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
             const SizedBox(height: 5),
+
             const Text(
-              'Belajar Flutter dengan GetX dan Hive ternyata sangat menyenangkan dan kodenya rapi!',
+              'Mas Yusuf dan Alfin adalah aslab yang mantap dan sabar selama membimbing saya dalam praktikum mobile.',
               style: TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 20),
+
             const Text(
               'Pesan:',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
             const SizedBox(height: 5),
+
             const Text(
-              'Terus semangat belajar ngoding. Error adalah guru terbaik kita.',
+              'Terima kasih atas segala ilmu, waktu, dan bimbingan yang telah diberikan selama ini.',
               style: TextStyle(fontSize: 16),
             ),
+
+            const Text(
+              'Kritik n saran:',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
+            const SizedBox(height: 5),
+
+            const Text(
+              'Mantap lah mas no kritik kritik, saran juga ga usah, pokoknya mantap lah pokoknya',
+              style: TextStyle(fontSize: 16),
+            ),
+
+            // Spacer untuk push button ke bawah
             const Spacer(),
+
             SizedBox(
               width: double.infinity,
               height: 50,

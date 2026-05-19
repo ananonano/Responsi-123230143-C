@@ -15,11 +15,7 @@ class DetailController extends GetxController {
   }
 
   void increment() {
-    if (qty.value < product.stock) {
-      qty.value++;
-    } else {
-      Get.snackbar('Info', 'Stok maksimal hanya ${product.stock}');
-    }
+    qty.value++;
   }
 
   void decrement() {
@@ -29,25 +25,17 @@ class DetailController extends GetxController {
   }
 
   void addToCart() async {
-    if (qty.value > 0) {
-      String currentUser = await AuthService.getUsername() ?? '';
-
-      final cartItem = CartModel(
-        id: product.id,
-        title: product.title,
-        price: product.price,
-        thumbnail: product.thumbnail,
-        qty: qty.value,
-        username: currentUser,
-      );
-
-      await HiveService.addToCart(cartItem);
-      Get.back();
-
-      Get.snackbar(
-        'Sukses',
-        '${qty.value} ${product.title} masuk ke keranjang!',
-      );
-    }
+    String currentUser = await AuthService.getUsername() ?? '';
+    final cartItem = CartModel(
+      id: product.id,
+      name: product.name,
+      rating: product.rating,
+      background_image: product.background_image,
+      qty: qty.value,
+      username: currentUser,
+    );
+    await HiveService.addToCart(cartItem);
+    Get.back();
+    Get.snackbar('Sukses', '${qty.value} ${product.name} masuk ke keranjang!');
   }
 }

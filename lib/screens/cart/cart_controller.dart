@@ -6,7 +6,8 @@ import '../../services/auth_service.dart';
 
 class CartController extends GetxController {
   var cartItems = <CartModel>[].obs;
-  var totalPrice = 0.0.obs;
+  var totalQuantity = 0.obs;
+  var cartKeys = <dynamic>[].obs;
 
   @override
   void onInit() {
@@ -17,15 +18,32 @@ class CartController extends GetxController {
   void loadCart() async {
     String currentUser = await AuthService.getUsername() ?? '';
     cartItems.value = HiveService.getCartByUsername(currentUser);
+    cartKeys.value = HiveService.getCartKeysByUsername(currentUser);
     calculateTotal();
   }
 
   void calculateTotal() {
-    double total = 0;
+    int total = 0;
     for (var item in cartItems) {
-      total += item.price * item.qty;
+      total += item.qty;
     }
-    totalPrice.value = total;
+    totalQuantity.value = total;
+  }
+
+  void incrementQty(int index) async {
+    int hiveKey = cartKeys[index];
+    cartItems[index].qty++;
+    await HiveService.updateCartItem(hiveKey, cartItems[index]);
+    loadCart();
+  }
+
+  void decrementQty(int index) async {
+    if (cartItems[index].qty > 1) {
+      int hiveKey = cartKeys[index];
+      cartItems[index].qty--;
+      await HiveService.updateCartItem(hiveKey, cartItems[index]);
+      loadCart();
+    }
   }
 
   void deleteItem(int index) {
@@ -37,13 +55,8 @@ class CartController extends GetxController {
       confirmTextColor: Colors.white,
       buttonColor: Colors.red,
       onConfirm: () async {
-        String currentUser = await AuthService.getUsername() ?? '';
-
-        List<dynamic> keys = HiveService.getCartKeysByUsername(currentUser);
-        int hiveKey = keys[index];
-
+        int hiveKey = cartKeys[index];
         await HiveService.deleteCartItem(hiveKey);
-
         Get.back();
         loadCart();
         Get.snackbar('Berhasil', 'Item dihapus dari keranjang');

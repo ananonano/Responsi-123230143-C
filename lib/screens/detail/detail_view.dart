@@ -19,42 +19,38 @@ class DetailView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Center(
-              child: Image.network(p.thumbnail, height: 200, fit: BoxFit.cover),
+              child: Image.network(
+                p.background_image,
+                height: 200,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) =>
+                    const Icon(Icons.image, size: 200),
+              ),
             ),
             const SizedBox(height: 16),
             Text(
-              p.title,
+              p.name,
               style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
-            Text(
-              'Brand: ${p.brand} | Category: ${p.category}',
-              style: const TextStyle(color: Colors.grey),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              '\$${p.price}',
-              style: const TextStyle(
-                fontSize: 20,
-                color: Colors.green,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 8),
+            Text('ID: ${p.id}'),
+            const SizedBox(height: 4),
+            Text('Released: ${p.released}'),
+            const SizedBox(height: 4),
             Row(
               children: [
                 const Icon(Icons.star, color: Colors.orange, size: 20),
-                Text(' ${p.rating}  |  Stok: ${p.stock}'),
+                Text(' ${p.rating}'),
               ],
             ),
+            const SizedBox(height: 4),
+            Text('Ratings Count: ${p.ratings_count}'),
+            const SizedBox(height: 4),
+            Text('Reviews Count: ${p.reviews_count}'),
+            const SizedBox(height: 4),
+            Text('Updated At: ${p.updated_at}'),
             const Divider(height: 30),
-            const Text(
-              'Deskripsi:',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Text(p.description),
-            const SizedBox(height: 30),
-
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

@@ -35,16 +35,25 @@ class HomeView extends StatelessWidget {
               margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               child: ListTile(
                 leading: Image.network(
-                  product.thumbnail,
+                  product.background_image,
                   width: 60,
                   height: 60,
                   fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) =>
+                      const Icon(Icons.image, size: 60),
                 ),
                 title: Text(
-                  product.title,
+                  product.name,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
-                subtitle: Text('${product.category} | \$${product.price}'),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('ID: ${product.id}'),
+                    Text('Released: ${product.released}'),
+                    Text('Rating: ${product.rating}'),
+                  ],
+                ),
                 onTap: () => Get.toNamed(Routes.detail, arguments: product),
               ),
             );

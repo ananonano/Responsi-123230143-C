@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:latihan_responsi/screens/home/home_view.dart';
-import 'package:latihan_responsi/screens/profile/profile_view.dart';
+import 'package:responsi/screens/home/home_view.dart';
+import 'package:responsi/screens/profile/profile_view.dart';
 import 'main_controller.dart';
 
 class MainView extends StatelessWidget {

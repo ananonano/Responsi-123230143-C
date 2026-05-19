@@ -1,31 +1,40 @@
-// lib/screens/login/login_controller.dart
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../services/auth_service.dart';
 import '../../routes/app_routes.dart';
 
+// Controller untuk handle logic halaman login
 class LoginController extends GetxController {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
+  var isPasswordVisible = false.obs;
+  var errorMessage = ''.obs;
 
   void login() async {
-    final username = usernameController.text;
+    final username = usernameController.text.trim();
     final password = passwordController.text.trim();
 
-    if (username.isNotEmpty && password == '12345678') {
-      await AuthService.saveLogin(username);
-
-      Get.offAllNamed(Routes.main);
-    } else {
-      Get.snackbar(
-        'Login Gagal',
-        'Username tidak boleh kosong dan Password harus 12345678',
-        backgroundColor: Colors.redAccent,
-        colorText: Colors.white,
-        snackPosition: SnackPosition.BOTTOM,
-      );
+    if (username.isEmpty || password.isEmpty) {
+      errorMessage.value = 'Username dan password tidak boleh kosong';
+      return;
     }
+
+    if (username.length < 5) {
+      errorMessage.value = 'Username minimal 5 karakter';
+      return;
+    }
+
+    if (password != '143') {
+      errorMessage.value = 'Password harus 3 digit terakhir NIM';
+      return;
+    }
+
+    await AuthService.saveLogin(username);
+    Get.offAllNamed(Routes.main);
+  }
+
+  void togglePasswordVisibility() {
+    isPasswordVisible.value = !isPasswordVisible.value;
   }
 
   @override
