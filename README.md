@@ -1,3 +1,3 @@
-# latihan_responsi
+# responsi
 
 A new Flutter project.
